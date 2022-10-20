@@ -23,9 +23,13 @@ let persons = [
   },
 ];
 
+const generateId = () => {
+  return Math.floor(Math.random() * (1333337 - 2) + 2);
+};
+
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+  console.log(`Server running on port ${PORT}`);
+});
 
 app.get("/persons/:id", (req, res) => {
   const id = Number(req.params.id);
@@ -50,8 +54,22 @@ app.get("/info", (req, res) => {
 });
 
 app.delete("/api/persons/:id", (req, res) => {
-    const id = Number(req.params.id)
-    persons = persons.filter((p) => p.id !== id)
-    res.status(204).end()
+  const id = Number(req.params.id);
+  persons = persons.filter((p) => p.id !== id);
+  res.status(204).end();
+});
 
-})
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+
+  // errorhandlign
+
+  const person = {
+    id: generateId(),
+    name: body.name,
+    number: body.number,
+  };
+
+  persons = persons.concat(person);
+  res.json(person);
+});
