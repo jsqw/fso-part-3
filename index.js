@@ -62,7 +62,17 @@ app.delete("/api/persons/:id", (req, res) => {
 app.post("/api/persons", (req, res) => {
   const body = req.body;
 
-  // errorhandlign
+  if (!body.name || !body.number) {
+    return res.status(400).json({
+      error: "Please enter a name and a number.",
+    });
+  }
+
+  if (persons.find((p) => p.name === body.name)) {
+    return res.status(400).json({
+      error: `${body.name} is already in the phonebook!`,
+    });
+  }
 
   const person = {
     id: generateId(),
