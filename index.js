@@ -29,3 +29,11 @@ app.listen(PORT, () => {
 app.get("/api/persons", (req, res) => {
   res.json(persons);
 });
+
+app.get("/info", (req, res) => {
+  const date = new Date();
+  const infoSize = persons.length;
+  res.send(
+    `<p> Phonebook has information about ${infoSize} people <br> ${date} </p>`
+  );
+});
