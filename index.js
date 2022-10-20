@@ -1,15 +1,17 @@
 const { response } = require("express");
 const express = require("express");
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001
 const morgan = require("morgan");
+const cors = require('cors')
+app.use(cors())
 
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
 });
 
 app.use(
-  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+  morgan(":method :url :status :res[name-length] - :response-time ms :body")
 );
 
 app.use(express.json());
@@ -17,17 +19,17 @@ app.use(express.json());
 let persons = [
   {
     id: 1,
-    content: "James Maxwell",
+    name: "James Maxwell",
     number: "123456789",
   },
   {
     id: 2,
-    content: "Leonardo Da Vinci",
+    name: "Leonardo Da Vinci",
     number: "7562359",
   },
   {
     id: 3,
-    content: "Mikael Kosola",
+    name: "Mikael Kosola",
     number: "22",
   },
 ];
@@ -37,8 +39,8 @@ const generateId = () => {
 };
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})
 
 app.get("/persons/:id", (req, res) => {
   const id = Number(req.params.id);
