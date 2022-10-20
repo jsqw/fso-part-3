@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
 const PORT = 3001;
@@ -22,6 +23,10 @@ let persons = [
   },
 ];
 
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+
 app.get("/persons/:id", (req, res) => {
   const id = Number(req.params.id);
   const person = persons.find((p) => p.id === id);
@@ -30,10 +35,6 @@ app.get("/persons/:id", (req, res) => {
   } else {
     res.status(404).end();
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
 
 app.get("/api/persons", (req, res) => {
@@ -47,3 +48,10 @@ app.get("/info", (req, res) => {
     `<p> Phonebook has information about ${infoSize} people <br> ${date} </p>`
   );
 });
+
+app.delete("/api/persons/:id", (req, res) => {
+    const id = Number(req.params.id)
+    persons = persons.filter((p) => p.id !== id)
+    res.status(204).end()
+
+})
