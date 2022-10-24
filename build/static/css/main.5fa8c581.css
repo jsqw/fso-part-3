@@ -1,2 +1,16 @@
-.notification{color:#00ff4c}.error,.notification{background:#fff;border-radius:5px;border-style:solid;font-size:20px;margin-bottom:10px;padding:10px}.error{color:#fc0000}
+.notification {
+  color: #00ff4c;
+}
+.error,
+.notification {
+  background: #fff;
+  border-radius: 5px;
+  border-style: solid;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.error {
+  color: #fc0000;
+}
 /*# sourceMappingURL=main.5fa8c581.css.map*/

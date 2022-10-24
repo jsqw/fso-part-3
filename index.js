@@ -1,11 +1,11 @@
 const { response } = require("express");
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001;
 const morgan = require("morgan");
-const cors = require('cors')
-app.use(cors())
-app.use(express.static('build'))
+const cors = require("cors");
+app.use(cors());
+app.use(express.static("build"));
 
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
@@ -40,8 +40,8 @@ const generateId = () => {
 };
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
 
 app.get("/persons/:id", (req, res) => {
   const id = Number(req.params.id);
