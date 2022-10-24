@@ -1,5 +1,5 @@
 {
-  "name": "fsoosa3",
+  "name": "fso-part-3",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:ui": "rm -rf build && cd ../tmp/phonebook/ && npm run build && cp -r build ../../fsoosa3/",
+    "build:ui": "rm -rf build && cd ../fso/phonebook/ && npm run build && cp -r build ../../fso-part-3/",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",    
     "logs:prod": "fly logs"
@@ -19,9 +19,9 @@
   "author": "js",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jsqw/fsoosa3/issues"
+    "url": "https://github.com/jsqw/fso-part-3/issues"
   },
-  "homepage": "https://github.com/jsqw/fsoosa3#readme",
+  "homepage": "https://github.com/jsqw/fso-part-3/#readme",
   "devDependencies": {
     "nodemon": "^2.0.20"
   },
