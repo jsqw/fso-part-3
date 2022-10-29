@@ -32,7 +32,41 @@ app.get("/info", (req, res) => {
   });
 });
 
+app.get("/api/persons/:id", (req, res) => {
+  Person.findById(req.params.id).then((person) => {
+    res.json(person);
+  });
+});
+
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+
+  if (body.name === undefined || body.number === undefined) {
+    return res.status(400).json({ error: "Name and or number missing" });
+  }
+  const person = new Person({
+    name: body.name,
+    number: body.number,
+  });
+
+  person.save().then((p) => {
+    res.json(p);
+  });
+});
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: "unknown endpoint" });
+};
+
+app.use(unknownEndpoint);
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+/*   app.delete("/api/persons/:id", (req, res) => {
+    const id = Number(req.params.id);
+    persons = persons.filter((p) => p.id !== id);
+    res.status(204).end();
+  });*/
