@@ -4,9 +4,19 @@ const Person = require("./models/person");
 const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
-app.use(cors());
 app.use(express.static("build"));
 app.use(express.json());
+app.use(cors());
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message);
+
+  if (error.name === "CastError") {
+    return response.status(400).send({ error: "malformatted id" });
+  }
+
+  next(error);
+};
 
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
@@ -30,6 +40,14 @@ app.get("/info", (req, res) => {
       `<p> Phonebook has information about ${infoSize} people <br> ${date} </p>`
     );
   });
+});
+
+app.delete("/api/persons/:id", (req, res, next) => {
+  Person.findByIdAndRemove(req.params.id)
+    .then((result) => {
+      res.status(204).end();
+    })
+    .catch((error) => next(error));
 });
 
 app.get("/api/persons/:id", (req, res) => {
@@ -60,13 +78,9 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint);
 
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-/*   app.delete("/api/persons/:id", (req, res) => {
-    const id = Number(req.params.id);
-    persons = persons.filter((p) => p.id !== id);
-    res.status(204).end();
-  });*/
