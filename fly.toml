@@ -1,12 +1,9 @@
-# fly.toml file generated for divine-surf-3766 on 2022-10-21T00:12:35+03:00
+# fly.toml file generated for patient-fire-2982 on 2022-10-31T00:55:39+02:00
 
-app = "divine-surf-3766"
+app = "patient-fire-2982"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
-
-[build]
-  builder = "heroku/buildpacks:20"
 
 [env]
   PORT = "8080"
